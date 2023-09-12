@@ -1,5 +1,7 @@
 package sorting
 
+import mergeList.MergingTwoListsBehaviour
+
 import scala.collection.immutable
 
 trait SortingBehaviour {
@@ -50,7 +52,9 @@ class InsertionSortRecursive extends SortingBehaviour{
     else xs.head :: insert(x, xs.tail)
 }
 
-class MergeSort extends SortingBehaviour {
+class MergeSort(val combineTwoList: MergingTwoListsBehaviour) extends SortingBehaviour {
+  
+  
   def sort(toSort: List[Int]): List[Int] = {
     if (toSort.length <= 1) // <= in case we send an empty list
       toSort
@@ -58,43 +62,12 @@ class MergeSort extends SortingBehaviour {
       val (leftSideToSort, rightSideToSort)= splitByHalf(toSort)
       val leftSide = sort(leftSideToSort)
       val rightSide = sort(rightSideToSort)
-      combineOrderedLists(leftSide, rightSide)
+      combineTwoList.mergeTwoSortedLists(leftSide, rightSide)
     }
   }
 
   private def splitByHalf(toSplit: List[Int]): (List[Int], List[Int]) = {
     val middle: Int = Math.ceil(toSplit.length / 2).toInt
     toSplit.splitAt(middle)
-  }
-
-  private def combineOrderedLists(leftSide: List[Int], rightSide: List[Int]): List[Int] =
-    (leftSide, rightSide) match {
-      case (Nil, Nil) => Nil
-      case (x::xs, Nil) => leftSide
-      case (Nil, x::xs) => rightSide
-      case (x::xs, y::ys) =>
-        if (x <= y)
-          x :: combineOrderedLists(xs, rightSide)
-        else
-          y :: combineOrderedLists(leftSide, ys)
-    }
-
-  private def combineOrderedListDeterministic(leftSide: List[Int], rightSide: List[Int]): List[Int] = {
-    val totalLength: Int = leftSide.length + rightSide.length
-    val combinedList: Array[Int] = new Array[Int](totalLength)
-    var i, j = 0
-    for (currentCount <- 0 until totalLength) {
-      val currentLeftSide = if (i < leftSide.length) leftSide(i) else 1000000
-      val currentRightSide = if (j < rightSide.length) rightSide(j) else 1000000
-      combinedList(currentCount) =
-        if (currentLeftSide <= currentRightSide) {
-          i += 1
-          leftSide(i - 1)
-        } else {
-          j += 1
-          rightSide(j - 1)
-        }
-    }
-    combinedList.toList
   }
 }

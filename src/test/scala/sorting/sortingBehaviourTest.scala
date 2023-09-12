@@ -1,5 +1,7 @@
 package sorting
 
+import mergeList.MergeTwoListRecursively
+
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
@@ -55,7 +57,7 @@ class InsertionSortTest extends SortingBehaviourTest {
 }
 
 class MergeSortTest extends SortingBehaviourTest {
-  val mergeSort: MergeSort = MergeSort()
+  val mergeSort: MergeSort = MergeSort(new MergeTwoListRecursively)
 
   behavior of "Merge Sort Algorithm"
 
