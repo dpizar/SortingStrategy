@@ -1,5 +1,6 @@
 package sorting
 
+import datastructures.MaxHeapSort
 import mergeList.MergingTwoListsBehaviour
 
 import scala.collection.immutable
@@ -9,10 +10,9 @@ trait SortingBehaviour {
 }
 
 class InsertionSort extends SortingBehaviour {
-
   def sort(toSort: List[Int]): List[Int] = {
     val arr = new Array[Int](toSort.length)
-    val copied = toSort.copyToArray(arr)
+    val _ = toSort.copyToArray(arr)
     sort(arr)
   }
 
@@ -53,8 +53,6 @@ class InsertionSortRecursive extends SortingBehaviour{
 }
 
 class MergeSort(val combineTwoList: MergingTwoListsBehaviour) extends SortingBehaviour {
-  
-  
   def sort(toSort: List[Int]): List[Int] = {
     if (toSort.length <= 1) // <= in case we send an empty list
       toSort
@@ -69,5 +67,12 @@ class MergeSort(val combineTwoList: MergingTwoListsBehaviour) extends SortingBeh
   private def splitByHalf(toSplit: List[Int]): (List[Int], List[Int]) = {
     val middle: Int = Math.ceil(toSplit.length / 2).toInt
     toSplit.splitAt(middle)
+  }
+}
+
+class HeapSort extends SortingBehaviour {
+  def sort(toSort: List[Int]): List[Int] = {
+    val maxHeapSort = MaxHeapSort(toSort)
+    maxHeapSort.heapSort()
   }
 }

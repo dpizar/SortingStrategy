@@ -63,3 +63,11 @@ class MergeSortTest extends SortingBehaviourTest {
 
   it should behave like sortingBehaviourTest(mergeSort)
 }
+
+class HeapSortTest extends SortingBehaviourTest {
+  val heapSort: HeapSort = HeapSort()
+
+  behavior of "Heap Sort Algorithm"
+
+  it should behave like sortingBehaviourTest(heapSort)
+}
