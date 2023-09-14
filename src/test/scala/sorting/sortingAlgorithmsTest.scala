@@ -1,6 +1,6 @@
 package sorting
 
-import mergeList.MergeTwoListRecursively
+import merge.MergeTwoListRecursively
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -70,4 +70,12 @@ class HeapSortTest extends SortingBehaviourTest {
   behavior of "Heap Sort Algorithm"
 
   it should behave like sortingBehaviourTest(heapSort)
+}
+
+class QuickSortTest extends SortingBehaviourTest {
+  val quickSort: QuickSort = QuickSort()
+
+  behavior of "Quicksort Algorithm"
+  
+  it should behave like sortingBehaviourTest(quickSort)
 }

@@ -1,9 +1,11 @@
 package sorting
 
 import datastructures.MaxHeapSort
-import mergeList.MergingTwoListsBehaviour
+import merge.MergingTwoListsBehaviour
+import utilities.ListOperations.swapValuesInArray
 
 import scala.collection.immutable
+import scala.util.Random
 
 trait SortingBehaviour {
   def sort(toSort: List[Int]): List[Int]
@@ -22,14 +24,8 @@ class InsertionSort extends SortingBehaviour {
       j <- List.range(1, currentKey).reverse
       if toSort(j - 1) > toSort(j)
     }
-        swap(toSort, j, j - 1)
+      swapValuesInArray(toSort, j, j - 1)
     toSort.toList
-  }
-
-  private def swap(toSort: Array[Int], i: Int, j: Int): Unit = {
-    val temp = toSort(i)
-    toSort(i) = toSort(j)
-    toSort(j) = temp
   }
 }
 
@@ -74,5 +70,38 @@ class HeapSort extends SortingBehaviour {
   def sort(toSort: List[Int]): List[Int] = {
     val maxHeapSort = MaxHeapSort(toSort)
     maxHeapSort.heapSort()
+  }
+}
+
+class QuickSort extends SortingBehaviour {
+  def sort(toSort: List[Int]): List[Int] = {
+    val arr = new Array[Int](toSort.length)
+    val _ = toSort.copyToArray(arr)
+    quickSort(arr, 0, toSort.length - 1)
+    arr.toList
+  }
+
+  def quickSort(toSort: Array[Int], startIndex: Int, endIndex: Int): Unit =
+    if (startIndex < endIndex){
+      val pivotIndex = randomPartition(toSort, startIndex, endIndex)
+      quickSort(toSort, startIndex, pivotIndex - 1)
+      quickSort(toSort, pivotIndex + 1, endIndex)
+    }
+
+  private def randomPartition(toSort: Array[Int], startIndex: Int, endIndex: Int): Int = {
+    val randomIndex = Random.between(startIndex, endIndex + 1)
+    swapValuesInArray(toSort, randomIndex, endIndex)
+    val pivot = toSort(endIndex)
+
+    var partitionIndex = startIndex - 1 // start at -1
+    for(
+      j <- startIndex until endIndex
+      if toSort(j) <= pivot
+    ) {
+      partitionIndex += 1
+      swapValuesInArray(toSort, partitionIndex, j)
+    }
+    swapValuesInArray(toSort, partitionIndex + 1, endIndex)
+    partitionIndex + 1
   }
 }

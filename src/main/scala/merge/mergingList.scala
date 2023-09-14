@@ -1,4 +1,4 @@
-package mergeList
+package merge
 
 trait MergingTwoListsBehaviour {
   def mergeTwoSortedLists(leftSide: List[Int], rightSide: List[Int]): List[Int]
