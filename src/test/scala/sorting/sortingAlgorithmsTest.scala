@@ -49,33 +49,33 @@ trait SortingBehaviourTest extends AnyFlatSpec with Matchers {
 }
 
 class InsertionSortTest extends SortingBehaviourTest {
-  val insertionSort: InsertionSort = InsertionSort()
+  val underTest: InsertionSort = InsertionSort()
 
   behavior of "Insertion Sort Algorithm"
 
-  it should behave like sortingBehaviourTest(insertionSort)
+  it should behave like sortingBehaviourTest(underTest)
 }
 
 class MergeSortTest extends SortingBehaviourTest {
-  val mergeSort: MergeSort = MergeSort(new MergeTwoListRecursively)
+  val underTest: MergeSort = MergeSort(new MergeTwoListRecursively)
 
   behavior of "Merge Sort Algorithm"
 
-  it should behave like sortingBehaviourTest(mergeSort)
+  it should behave like sortingBehaviourTest(underTest)
 }
 
 class HeapSortTest extends SortingBehaviourTest {
-  val heapSort: HeapSort = HeapSort()
+  val underTest: HeapSort = HeapSort()
 
   behavior of "Heap Sort Algorithm"
 
-  it should behave like sortingBehaviourTest(heapSort)
+  it should behave like sortingBehaviourTest(underTest)
 }
 
 class QuickSortTest extends SortingBehaviourTest {
-  val quickSort: QuickSort = QuickSort()
+  val underTest: QuickSort = QuickSort()
 
   behavior of "Quicksort Algorithm"
   
-  it should behave like sortingBehaviourTest(quickSort)
+  it should behave like sortingBehaviourTest(underTest)
 }
